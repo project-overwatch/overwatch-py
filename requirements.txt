@@ -4,7 +4,10 @@ arrow==0.10.0
 httptools==0.0.9
 packaging==16.8
 psutil==5.2.1
+py==1.4.33
 pyparsing==2.2.0
+pytest==3.0.7
+python-dateutil==2.6.0
 sanic==0.4.1
 six==1.10.0
 ujson==1.35
