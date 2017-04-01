@@ -129,3 +129,53 @@ def test_cpu_freq_endpoint():
     else:
         assert False, "The UNIX timestamp is missing."
 '''
+
+def test_memory_usage_endpoint():
+    request, response = app.test_client.get('/memory/usage')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'total' in data:
+        assert True
+    else:
+        assert False, "Total physical memory numbers are missing."
+    if 'available' in data:
+        assert True
+    else:
+        assert False, "Available memory numbers are missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
+
+def test_swap_memory_usage_endpoint():
+    request, response = app.test_client.get('/memory/swap')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'total' in data:
+        assert True
+    else:
+        assert False, "Total swap memory numbers are missing."
+    if 'used' in data:
+        assert True
+    else:
+        assert False, "Used swap memory numbers are missing."
+    if 'free' in data:
+        assert True
+    else:
+        assert False, "Free swap memory numbers are missing."
+    if 'percent' in data:
+        assert True
+    else:
+        assert False, "Swap memory usage percentage numbers are missing."
+    if 'sin' in data:
+        assert True
+    else:
+        assert False, "Swapped in byte numbers are missing."
+    if 'sout' in data:
+        assert True
+    else:
+        assert False, "Swapped out byte numbers are missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
