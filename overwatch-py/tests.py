@@ -77,3 +77,28 @@ def test_cpus_times_endpoint():
         assert True
     else:
         assert False, "The UNIX timestamp is missing."
+
+def test_cpu_stats_endpoint():
+    request, response = app.test_client.get('/cpu/stats')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'ctx_switches' in data:
+        assert True
+    else:
+        assert False, "Context switches numbers are missing."
+    if 'interrupts' in data:
+        assert True
+    else:
+        assert False, "Interrupt numbers are missing."
+    if 'soft_interrupts' in data:
+        assert True
+    else:
+        assert False, "Soft interrupt numbers are missing."
+    if "syscalls" in data:
+        assert True
+    else:
+        assert False, "Syscall metrics are missing."
+    if "timestamp" in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."

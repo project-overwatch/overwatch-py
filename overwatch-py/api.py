@@ -40,5 +40,13 @@ async def getCpusTimes(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint returns CPU stats.
+@app.route('/cpu/stats')
+async def getCpuStats(request):
+    payload = psutil.cpu_stats()._asdict()
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
