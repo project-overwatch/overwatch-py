@@ -56,6 +56,12 @@ async def getCpuFreq(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint exposes system memory usage.
+@app.route('/memory/usage')
+async def getMemoryUsage(request):
+    payload = psutil.virtual_memory()._asdict()
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

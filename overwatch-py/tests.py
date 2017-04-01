@@ -129,3 +129,20 @@ def test_cpu_freq_endpoint():
     else:
         assert False, "The UNIX timestamp is missing."
 '''
+
+def test_memory_usage_endpoint():
+    request, response = app.test_client.get('/memory/usage')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'total' in data:
+        assert True
+    else:
+        assert False, "Total physical memory numbers are missing."
+    if 'available' in data:
+        assert True
+    else:
+        assert False, "Available memory numbers are missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
