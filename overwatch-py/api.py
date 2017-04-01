@@ -95,9 +95,13 @@ async def getDiskUsage(request):
 async def getDiskIOCounters(request):
     payload = psutil.disk_io_counters()._asdict()
     disks_io = psutil.disk_io_counters(perdisk=True)
-    print(payload)
-    print(disks_io)
-    payload['disks'] = [disk._asdict() for key, disk in disks_io.items()]
+    disks = []
+    for key, value in disks_io.items():
+        disk = {}
+        disk['name'] = key
+        disk['io'] = value._asdict()
+        disks.append(disk)
+    payload['disks'] = disks
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
