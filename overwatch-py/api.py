@@ -70,5 +70,14 @@ async def getSwapMemoryUsage(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint returns all mounted disk partitions.
+@app.route('/disks/partitions')
+async def getDiskPartitions(request):
+    payload = {}
+    partitions = psutil.disk_partitions()
+    payload['partitions'] = [partition._asdict() for partition in partitions]
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
