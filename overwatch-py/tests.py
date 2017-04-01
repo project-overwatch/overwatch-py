@@ -55,6 +55,10 @@ def test_cpu_usage_endpoint():
         assert True
     else:
         assert False, "CPU usage stats are missing."
+    if 'cpus' in data:
+        assert True
+    else:
+        assert False, "CPU-specific usage stats are missing."
     if 'timestamp' in data:
         assert True
     else:

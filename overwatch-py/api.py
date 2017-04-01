@@ -26,6 +26,7 @@ async def getCpuTimes(request):
 async def getCpuUsage(request):
     payload = {}
     payload['usage'] = psutil.cpu_percent(interval=1)
+    payload['cpus'] = psutil.cpu_percent(interval=1, percpu=True)
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
