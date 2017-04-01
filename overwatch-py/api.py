@@ -79,5 +79,17 @@ async def getDiskPartitions(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint exposes disk usage for a given mountpoint.
+@app.route('/disks/usage')
+async def getDiskUsage(request):
+    payload = {}
+    path = request.args['mountpoint']
+    print(path)
+    usage = psutil.disk_usage(path[0])
+    payload['usage'] = usage._asdict()
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

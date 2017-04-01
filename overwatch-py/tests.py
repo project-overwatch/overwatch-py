@@ -192,3 +192,8 @@ def test_disk_partitions_endpoint():
         assert True
     else:
         assert False, "The UNIX timestamp is missing."
+
+def test_disk_usage_endpoint():
+    request, response = app.test_client.get('/disks/usage?mountpoint=/')
+    data = json.loads(response.text)
+    assert response.status == 200
