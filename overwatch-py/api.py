@@ -70,5 +70,38 @@ async def getSwapMemoryUsage(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint returns all mounted disk partitions.
+@app.route('/disks/partitions')
+async def getDiskPartitions(request):
+    payload = {}
+    partitions = psutil.disk_partitions()
+    payload['partitions'] = [partition._asdict() for partition in partitions]
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+# This endpoint exposes disk usage for a given mountpoint.
+@app.route('/disks/usage')
+async def getDiskUsage(request):
+    payload = {}
+    path = request.args['mountpoint']
+    print(path)
+    usage = psutil.disk_usage(path[0])
+    payload['usage'] = usage._asdict()
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+# This endpoint returns disk IO metrics.
+@app.route('/disks/io')
+async def getDiskIOCounters(request):
+    payload = psutil.disk_io_counters()._asdict()
+    disks_io = psutil.disk_io_counters(perdisk=True)
+    print(payload)
+    print(disks_io)
+    payload['disks'] = [disk._asdict() for key, disk in disks_io.items()]
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

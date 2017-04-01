@@ -179,3 +179,70 @@ def test_swap_memory_usage_endpoint():
         assert True
     else:
         assert False, "The UNIX timestamp is missing."
+
+def test_disk_partitions_endpoint():
+    request, response = app.test_client.get('/disks/partitions')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'partitions' in data:
+        assert True
+    else:
+        assert False, "Disk partitions info is missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
+
+def test_disk_usage_endpoint():
+    request, response = app.test_client.get('/disks/usage?mountpoint=/')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'usage' in data:
+        assert True
+    else:
+        assert False, "Disk usage data is missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
+
+def test_disk_io_endpoint():
+    request, response = app.test_client.get('/disks/io')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'read_count' in data:
+        assert True
+    else:
+        assert False, "Disk read counts are missing."
+    if 'write_count' in data:
+        assert True
+    else:
+        assert False, "Disk write counts are missing."
+    if 'read_bytes' in data:
+        assert True
+    else:
+        assert False, "Disk read byte counts are missing."
+    if 'write_bytes' in data:
+        assert True
+    else:
+        assert False, "Disk write byte counts are missing."
+    if 'read_time' in data:
+        assert True
+    else:
+        assert False, "Disk read times are missing."
+    if 'write_time' in data:
+        assert True
+    else:
+        assert False, "Disk write times are missing."
+    if 'disks' in data:
+        assert True
+    else:
+        assert False, "Disk-specific IO metrics are missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
+
+
+
+
