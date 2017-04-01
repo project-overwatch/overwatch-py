@@ -102,3 +102,29 @@ def test_cpu_stats_endpoint():
         assert True
     else:
         assert False, "The UNIX timestamp is missing."
+
+def test_cpu_freq_endpoint():
+    request, response = app.test_client.get('/cpu/freq')
+    data = json.loads(response.text)
+    print(data)
+    assert response.status == 200
+    if 'cpus' in data:
+        assert True
+    else:
+        assert False, "CPU-specific frequency metrics are missing."
+    if 'current' in data:
+        assert True
+    else:
+        assert False, "Current CPU frequency is missing."
+    if 'min' in data:
+        assert True
+    else:
+        assert False, "Minimum CPU frequency is missing."
+    if 'max' in data:
+        assert True
+    else:
+        assert False, "Maximum CPU frequency is missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
