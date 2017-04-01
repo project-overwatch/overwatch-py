@@ -90,6 +90,18 @@ async def getDiskUsage(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint returns disk IO metrics.
+@app.route('/disks/io')
+async def getDiskIOCounters(request):
+    payload = psutil.disk_io_counters()._asdict()
+    disks_io = psutil.disk_io_counters(perdisk=True)
+    print(payload)
+    print(disks_io)
+    payload['disks'] = [disk._asdict() for key, disk in disks_io.items()]
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
