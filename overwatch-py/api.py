@@ -21,6 +21,13 @@ async def getCpuTimes(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
+# This endpoint returns the current system-wide CPU utilization as a percentage.
+@app.route('/cpu/usage')
+async def getCpuUsage(request):
+    payload = {}
+    payload['usage'] = psutil.cpu_percent(interval=1)
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
