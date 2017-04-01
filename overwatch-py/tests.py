@@ -63,3 +63,17 @@ def test_cpu_usage_endpoint():
         assert True
     else:
         assert False, "The UNIX timestamp is missing."
+
+def test_cpus_times_endpoint():
+    request, response = app.test_client.get('/cpus/times')
+    data = json.loads(response.text)
+    print(data)
+    assert response.status == 200
+    if 'cpus' in data:
+        assert True
+    else:
+        assert False, "CPU-specific times are missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
