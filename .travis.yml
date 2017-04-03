@@ -4,3 +4,7 @@ python:
 
 install: "pip install -r requirements.txt"
 script: "pytest overwatch-py/tests.py"
+before_install:
+  pip install codecov
+after_success:
+  codecov --token=f0a44f38-6af4-478d-ab59-b0b55cd29cb5
