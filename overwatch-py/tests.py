@@ -243,6 +243,49 @@ def test_disk_io_endpoint():
     else:
         assert False, "The UNIX timestamp is missing."
 
-
+def test_network_io_endpoint():
+    request, response = app.test_client.get('/network/io')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'bytes_sent' in data:
+        assert True
+    else:
+        assert False, "Sent byte numbers are missing."
+    if 'bytes_recv' in data:
+        assert True
+    else:
+        assert False, "Received byte numbers are missing."
+    if 'packets_sent' in data:
+        assert True
+    else:
+        assert False, "Sent packet numbers are missing."
+    if 'packets_recv' in data:
+        assert True
+    else:
+        assert False, "Received packet numbers are missing."
+    if 'errin' in data:
+        assert True
+    else:
+        assert False, "Receiving error numbers are missing."
+    if 'errout' in data:
+        assert True
+    else:
+        assert False, "Sending error numbers are missing."
+    if 'dropin' in data:
+        assert True
+    else:
+        assert False, "Dropped incoming packet numbers are missing."
+    if 'dropout' in data:
+        assert True
+    else:
+        assert False, "Dropped outgoing packet numbers are missing."
+    if 'nics' in data:
+        assert True
+    else:
+        assert False, "NIC-specific IO metrics are missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."    
 
 
