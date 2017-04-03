@@ -101,7 +101,21 @@ async def getDiskIOCounters(request):
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
-
+# This endpoint returns network IO metrics.
+@app.route('/network/io')
+async def getNetworkIOCounters(request):
+    payload = psutil.net_io_counters()._asdict()
+    nics_io = psutil.net_io_counters(pernic=True)
+    nics = []
+    for key, value in nics_io.items():
+        nic = {}
+        nic['name'] = key
+        nic['io'] = value._asdict()
+        nics.append(nic)
+    payload['nics'] = nics
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
