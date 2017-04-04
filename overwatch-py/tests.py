@@ -300,6 +300,10 @@ def test_system_boot_time_endpoint():
         assert True
     else:
         assert False, "The system's boot date is missing."
+    if 'uptime' in data:
+        assert True
+    else:
+        assert False, "The system uptime is missing."
     if 'timestamp' in data:
         assert True
     else:
