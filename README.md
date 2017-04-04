@@ -22,6 +22,9 @@ You can install them globally, or insinde a virtualenv - your call.
 
 A list of available routes and their payloads can be found in the code itself, in `api.py`. A Swagger spec is on the way.
 
+If you'd like to run the test suite:
+`pytest overwatch-py/tests.py`
+
 ## Contributions..
 
 ..are more than welcome. Please fork the code, hack to your heart's content and file a PR. Also, please make sure any new endpoints
