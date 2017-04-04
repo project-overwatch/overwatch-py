@@ -119,6 +119,24 @@ async def getNetworkIOCounters(request):
     payload['nics'] = nics
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
+
+# This endpoint returns system boot time.
+@app.route('/system/boot-time')
+async def getSystemBootTime(request):
+    payload = {}
+    payload['boot_timestamp'] = psutil.boot_time()
+    payload['boot_date'] = arrow.get(psutil.boot_time()).format('DD-MMM-YYYY HH:mm:SS ZZ')
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
+
+# This endpoint returns user session details.
+@app.route('/system/users')
+async def getSystemUsers(request):
+    payload = {}
+    users = psutil.users()
+    payload['users'] = [u._asdict() for u in users]
+    payload['timestamp'] = arrow.now().timestamp
+    return json(payload)
     
 
 if __name__ == "__main__":
