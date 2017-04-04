@@ -126,6 +126,8 @@ async def getSystemBootTime(request):
     payload = {}
     payload['boot_timestamp'] = psutil.boot_time()
     payload['boot_date'] = arrow.get(psutil.boot_time()).format('DD-MMM-YYYY HH:mm:SS ZZ')
+    delta = arrow.utcnow() - arrow.get(psutil.boot_time())
+    payload['uptime'] = (delta.days*24) + (delta.seconds/3600)
     payload['timestamp'] = arrow.now().timestamp
     return json(payload)
 
