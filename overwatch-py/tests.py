@@ -304,3 +304,16 @@ def test_system_boot_time_endpoint():
         assert True
     else:
         assert False, "The UNIX timestamp is missing."
+
+def test_system_users_endpoint():
+    request, response = app.test_client.get('/system/users')
+    data = json.loads(response.text)
+    assert response.status == 200
+    if 'users' in data:
+        assert True
+    else:
+        assert False, "User session data is missing."
+    if 'timestamp' in data:
+        assert True
+    else:
+        assert False, "The UNIX timestamp is missing."
